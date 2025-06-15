@@ -5,3 +5,5 @@
 *.png
 *.avif
 *.ico
+
+.DS_Store
