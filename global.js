@@ -28,19 +28,19 @@ window.addEventListener("resize", () => {
 //loader
 
 //reset to top
-window.addEventListener("load", () => {
-  if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
-  }
+// window.addEventListener("load", () => {
+//   if ("scrollRestoration" in history) {
+//     history.scrollRestoration = "manual";
+//   }
 
-  setTimeout(() => {
-    if (window.lenis) {
-      window.lenis.scrollTo(0, { immediate: true });
-    } else {
-      window.scrollTo(0, 0);
-    }
-  }, 100);
-});
+//   setTimeout(() => {
+//     if (window.lenis) {
+//       window.lenis.scrollTo(0, { immediate: true });
+//     } else {
+//       window.scrollTo(0, 0);
+//     }
+//   }, 100);
+// });
 
 //loading anim
 const loader = document.querySelector(".page-loader");
