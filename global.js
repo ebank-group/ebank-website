@@ -1,4 +1,4 @@
-// v1.2
+// v1.3
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(SplitText);
 const initLenis = () => {
@@ -133,7 +133,6 @@ const closeFaq = (faq) => {
 };
 const openFaq = (faq) => {
   if (faq.classList.contains("cc-closed")) {
-    console.log("opened", faq);
     faq.classList.remove("cc-closed");
     const body = faq.querySelector(".faq-body");
     body.style.height = body.scrollHeight + 8 + "px";
@@ -169,7 +168,7 @@ faqs.forEach((faq) => {
 });
 //open first faq
 if (faqs.length > 0) {
-  console.log("faqs:", faqs);
+  faqs[0].click();
 }
 
 //modal

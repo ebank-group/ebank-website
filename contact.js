@@ -23,7 +23,7 @@ moveLoader(contactForm);
 replaceAnchorWithSubmit(contactFormBtn);
 
 contactForm.addEventListener("submit", (e) => {
-  console.log("contact submitted");
+  // console.log("contact submitted");
   e.preventDefault();
   handleSubmit(e, "contact");
 });
