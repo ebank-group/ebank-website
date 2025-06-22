@@ -1,4 +1,4 @@
-// v1.2
+// v1.3
 
 const calculateReturns = (amount, freq = "daily") => {
   const saveCount = freq === "daily" ? 365 : 12;
@@ -29,18 +29,23 @@ const handleCalculator = () => {
   const calcBonus = document.querySelector("[data-calc-bonus]");
 
   let currentNumericValue = 0;
-  let currentResultValue = 0;
+  // let currentResultValue = 0;
   let currentFreq = "daily";
 
-  calcInput.addEventListener("input", (event) => {
-    const value = event.target.value;
+  const updateCalculator = (inputEl) => {
+    inputEl = inputEl ?? calcInput;
+    const value = inputEl.value;
     const cleanValue = window.cleanInput(value.slice(1));
     const numericValue = Number(cleanValue);
     currentNumericValue = numericValue;
     const { final, bonus } = calculateReturns(currentNumericValue, currentFreq);
-    event.target.value = `₦${formatCurrency(cleanValue)}`;
+    inputEl.value = `₦${formatCurrency(cleanValue)}`;
     calcResult.textContent = `₦${formatCurrency(final)}`;
     calcBonus.textContent = `₦${formatCurrency(bonus)}`;
+  };
+
+  calcInput.addEventListener("input", (event) => {
+    updateCalculator(event.target);
   });
 
   const periodTabs = document.querySelectorAll(".calc-select_tab");
@@ -58,8 +63,8 @@ const handleCalculator = () => {
       const value = tab.dataset.value;
       currentFreq = value;
       periodText.textContent = periodTexts[value];
-      const { width, left } = tab.getBoundingClientRect();
-      console.log("tab rect:", width, left, tab.offsetLeft);
+      updateCalculator();
+
       periodTabs.forEach((tab) => tab.classList.remove("cc-active"));
       tab.classList.add("cc-active");
       Object.assign(periodIndicator.style, {
