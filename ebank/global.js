@@ -2,6 +2,62 @@
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(SplitText);
 
+const initLenisAnchors = (lenis) => {
+  if (!lenis) {
+    console.warn("Lenis instance is required");
+    return;
+  }
+
+  document.querySelectorAll('a[href*="#"]').forEach((link) => {
+    const href = link.getAttribute("href");
+    const [path, hash] = href.split("#");
+
+    if (!hash) return;
+
+    link.addEventListener("click", (e) => {
+      const currentPath = window.location.pathname;
+      const targetPath = path || currentPath;
+
+      if (targetPath === currentPath) {
+        // Same page — smooth scroll with Lenis
+        const target = document.getElementById(hash);
+        if (target) {
+          e.preventDefault();
+          lenis.scrollTo(target, {
+            offset: -20,
+            duration: 1.2,
+            easing: (t) => 1 - Math.pow(1 - t, 3),
+          });
+        }
+      } else {
+        sessionStorage.setItem("scrollTarget", `#${hash}`);
+      }
+    });
+  });
+
+  window.addEventListener("load", () => {
+    console.log("load event listern:");
+
+    const target = sessionStorage.getItem("scrollTarget");
+    if (target) {
+      sessionStorage.removeItem("scrollTarget");
+      const el = document.querySelector(target);
+      if (el) {
+        setTimeout(() => {
+          console.log("scrolling to:", el);
+          // window.scrollTo(0, 0);
+          // lenis.scrollTo(0);
+          lenis.scrollTo(el, {
+            offset: -20,
+            duration: 1.2,
+            easing: (t) => 1 - Math.pow(1 - t, 3),
+          });
+        }, 100); // wait for DOM + Lenis init
+      }
+    }
+  });
+};
+
 const initLenis = () => {
   window.lenis = new Lenis({
     duration: 1.25,
@@ -16,6 +72,7 @@ const initLenis = () => {
     window.lenis.raf(time * 1000);
   });
   lenis.on("scroll", ScrollTrigger.update);
+  initLenisAnchors(window.lenis);
 };
 
 if (window.innerWidth >= 767) {
