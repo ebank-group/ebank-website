@@ -27,7 +27,9 @@ window.addEventListener("resize", () => {
   }
 });
 
-window.lenis.scrollTo(0);
+if (window.lenis) {
+  window.lenis.scrollTo(0);
+}
 //loading anim
 const loader = document.querySelector(".page-loader");
 
