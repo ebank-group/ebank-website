@@ -34,7 +34,6 @@ const areaSlider = () => {
   };
 
   const sliderDesktop = () => {
-    console.log("add desktop listeners");
     titles.forEach((title, i) => {
       const handler = () => transition(i);
       title.addEventListener("mouseover", handler);
@@ -50,8 +49,6 @@ const areaSlider = () => {
   };
 
   const sliderMobile = () => {
-    console.log("add mobile listeners");
-
     const prevBtn = document.querySelector(
       '.area-slider_pointer[data-btn="left"]'
     );
@@ -84,8 +81,6 @@ const areaSlider = () => {
 
   window.addEventListener("resize", () => {
     destroyListeners();
-
-    console.log("resized");
 
     if (window.innerWidth > 767) {
       sliderDesktop();
